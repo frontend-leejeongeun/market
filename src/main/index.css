@@ -72,6 +72,11 @@
   overflow: hidden;
 }
 
+.product-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .product-img > img {
   width: 100%;
   height: 210px;
