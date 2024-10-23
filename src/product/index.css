@@ -58,3 +58,7 @@
 .description {
   margin-top: 16px;
 }
+
+.purchase-button {
+  margin: 8px 0 16px 0;
+}
