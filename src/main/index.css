@@ -11,7 +11,6 @@
 
 .product-wrap {
   height: 100%;
-  width: auto;
   margin: 0 auto;
   padding-bottom: 24px;
   width: 1024px;
@@ -69,10 +68,21 @@
 .product-seller {
   display: flex;
   align-items: center;
-  margin-top: 12px;
 }
 
 .product-seller > img {
   height: 15px;
   margin-right: 3px;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.product-date {
+  font-size: 12px;
+  color: rgb(136, 136, 136);
 }

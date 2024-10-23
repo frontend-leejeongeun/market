@@ -19,6 +19,7 @@ body,
   width: 100%;
   background: #fff;
   top: 0px;
+  z-index: 1;
 }
 
 .header-area {
@@ -49,7 +50,7 @@ body,
 }
 
 .content {
-  margin-top: 100px;
+  margin-top: 60px;
   padding-bottom: 50px;
 }
 
