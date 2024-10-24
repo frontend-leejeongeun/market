@@ -1,19 +1,19 @@
-import React from "react";
-import "./index.css";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { API_URL } from "../config/constants";
 import { Carousel } from "antd";
+import { API_URL } from "../config/constants";
+import "./index.css";
 
 dayjs.extend(relativeTime);
 
 function MainPage() {
-  const [products, setProducts] = React.useState([]);
-  const [banners, setBanners] = React.useState([]);
+  const [products, setProducts] = useState([]);
+  const [banners, setBanners] = useState([]);
 
-  React.useEffect(function () {
+  useEffect(function () {
     axios
       .get(`${API_URL}/products`)
       .then(function (result) {

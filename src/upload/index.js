@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../config/constants";
 import {
   Form,
   Divider,
@@ -8,11 +12,6 @@ import {
   message,
 } from "antd";
 import "./index.css";
-import { ForkOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import { API_URL } from "../config/constants";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 function UploadPage() {
   const [imageUrl, setImageUrl] = useState(null);
@@ -57,6 +56,7 @@ function UploadPage() {
       <Form name="상품 업로드" onFinish={onSubmit}>
         <Form.Item
           name="upload"
+          rules={[{ required: true, message: "이미지를 업로드 해주세요" }]}
           label={<div className="upload-label">상품 사진</div>}
         >
           <Upload

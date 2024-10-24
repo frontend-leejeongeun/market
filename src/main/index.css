@@ -1,19 +1,21 @@
 .banner {
-  height: 300px;
+  height: 300px; /* 모든 배너의 높이를 300px로 고정 */
   overflow: hidden;
   margin-top: 60px;
 }
 
 .banner > img {
   width: 100%;
-  margin-top: -25%;
+  height: 100%; /* 배너 높이에 맞추기 */
+  object-fit: cover; /* 비율을 유지하면서 배너 크기에 맞추고 넘치는 부분은 잘라내기 */
 }
 
 .product-wrap {
   height: 100%;
   margin: 0 auto;
   padding-bottom: 24px;
-  width: 1024px;
+  width: 100%;
+  max-width: 1024px;
 }
 
 .product-wrap > h2 {
@@ -21,17 +23,17 @@
 }
 
 .product-list {
-  width: 1024px;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   margin: 12px auto;
-  padding-bottom: 0px;
+  column-gap: 3px;
+  padding: 0 0 0 5px;
 }
 
 .product-card {
   width: 180px;
   min-height: 300px;
-  margin-right: 12px;
   margin-bottom: 12px;
   border: 1px solid rgb(230, 230, 230);
   border-radius: 3px;

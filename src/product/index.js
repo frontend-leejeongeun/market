@@ -1,14 +1,14 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import "./index.css";
-import { API_URL } from "../config/constants";
 import dayjs from "dayjs";
 import { Button, message } from "antd";
+import { API_URL } from "../config/constants";
+import "./index.css";
 
 function ProductPage() {
   const { id } = useParams();
-  const [product, setProduct] = React.useState(null);
+  const [product, setProduct] = useState(null);
 
   const getProduct = () => {
     axios
@@ -22,7 +22,7 @@ function ProductPage() {
       });
   };
 
-  React.useEffect(function () {
+  useEffect(function () {
     getProduct();
   }, []);
 
