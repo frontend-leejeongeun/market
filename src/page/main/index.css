@@ -49,6 +49,11 @@
   bottom: 0;
   background-color: #ffffffaa;
   pointer-events: none;
+  text-align: center;
+  line-height: 1300%;
+  height: 100%;
+  font-weight: bold;
+  color: #666;
 }
 
 .product-link {

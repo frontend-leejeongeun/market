@@ -18,7 +18,7 @@
 .image-box > img {
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .profile-box {
@@ -64,6 +64,9 @@
   white-space: pre-wrap;
 }
 
-.purchase-button {
-  margin: 8px 0 16px 0;
+.button-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 0 0;
 }

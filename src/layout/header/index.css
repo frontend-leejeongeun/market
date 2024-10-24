@@ -1,0 +1,39 @@
+.header {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid gray;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  top: 0px;
+  z-index: 1;
+}
+
+.header-area {
+  width: 100%;
+  max-width: 1024px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-area a {
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-area a > * {
+  align-items: center;
+}
+
+.header-area img {
+  width: auto;
+  height: 45px;
+}

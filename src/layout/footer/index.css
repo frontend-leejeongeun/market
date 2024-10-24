@@ -1,0 +1,12 @@
+.footer {
+  height: 50px;
+  background-color: rgb(230, 230, 230);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer > img {
+  height: 25px;
+}

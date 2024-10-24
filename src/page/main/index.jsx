@@ -4,7 +4,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Carousel } from "antd";
-import { API_URL } from "../config/constants";
+import { API_URL } from "../../config/constants";
 import "./index.css";
 
 dayjs.extend(relativeTime);
@@ -58,7 +58,9 @@ function MainPage() {
             return (
               <div className="product-card" key={index}>
                 {console.log(product.soldout)} {/* soldout 값 확인 */}
-                {product.soldout === 1 && <div className="product-blur"></div>}
+                {product.soldout === 1 && (
+                  <div className="product-blur">판매완료</div>
+                )}
                 <Link className="product-link" to={`/products/${product.id}`}>
                   <div className="product-img">
                     <img src={`${API_URL}/${product.imageUrl}`} alt="image" />
@@ -72,10 +74,10 @@ function MainPage() {
                         <img src="/images/icons/mimoticon-heart.png" alt="" />
                         <span>{product.seller}</span>
                       </div>
-                      <span className="product-date">
-                        {dayjs(product.createdAt).fromNow()}
-                      </span>
                     </div>
+                    <span className="product-date">
+                      {dayjs(product.createdAt).fromNow()}
+                    </span>
                   </div>
                 </Link>
               </div>

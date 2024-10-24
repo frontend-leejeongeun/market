@@ -1,52 +1,28 @@
+import { Switch, Route, useHistory } from "react-router-dom";
+import Header from "./layout/header";
+import Footer from "./layout/footer";
+import MainPageComponent from "./page/main";
+import UploadPage from "./page/upload";
+import ProductPage from "./page/product";
+import UpdatePage from "./page/update";
+import DeletePage from "./page/delete";
 import "./App.css";
-import MainPageComponent from "./main";
-import UploadPage from "./upload";
-import ProductPage from "./product";
-import UpdatePage from "./update";
-import { Switch, Route, Link, useHistory } from "react-router-dom";
-import { Button } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
 
 function App() {
   const history = useHistory();
   return (
     <div className="wrapper">
-      <div className="header">
-        <div className="header-area">
-          <Link to="/">
-            <img src="/images/icons/mimoticon-heart.png" />
-            <span className="text">Market</span>
-          </Link>
-          <Button
-            size="large"
-            onClick={function () {
-              history.push("/upload");
-            }}
-            icon={<UploadOutlined />}
-          >
-            상품 업로드
-          </Button>
-        </div>
-      </div>
+      <Header />
       <div className="content">
         <Switch>
-          <Route exact={true} path="/">
-            <MainPageComponent />
-          </Route>
-          <Route exact={true} path="/upload">
-            <UploadPage />
-          </Route>
-          <Route exact={true} path="/products/:id">
-            <ProductPage />
-          </Route>
+          <Route exact={true} path="/" component={MainPageComponent} />
+          <Route exact={true} path="/upload" component={UploadPage} />
+          <Route exact={true} path="/products/:id" component={ProductPage} />
           <Route exact path="/products/update/:id" component={UpdatePage} />
+          <Route exact path="/products/delete/:id" component={DeletePage} />
         </Switch>
       </div>
-      <div className="footer">
-        <img src="/images/icons/mimoticon-heart.png" alt="" />
-        <img src="/images/icons/mimoticon-heart.png" alt="" />
-        <img src="/images/icons/mimoticon-heart.png" alt="" />
-      </div>
+      <Footer />
     </div>
   );
 }

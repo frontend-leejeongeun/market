@@ -3,13 +3,17 @@ import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import dayjs from "dayjs";
 import { Button, message } from "antd";
-import { API_URL } from "../config/constants";
+import { API_URL } from "../../config/constants";
 import "./index.css";
 
 function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const history = useHistory();
+
+  const onClickDelete = () => {
+    history.push(`/products/delete/${id}`); // 상품 삭제 페이지로 이동
+  };
 
   const getProduct = () => {
     axios
@@ -23,14 +27,6 @@ function ProductPage() {
       });
   };
 
-  useEffect(function () {
-    getProduct();
-  }, []);
-
-  if (product === null) {
-    return <h1>상품 정보를 받고 있습니다</h1>;
-  }
-
   const onClickPurchase = () => {
     axios
       .post(`${API_URL}/purchase/${id}`)
@@ -42,6 +38,14 @@ function ProductPage() {
         message.error(`에러가 발생했습니다. ${error.message}`);
       });
   };
+
+  useEffect(function () {
+    getProduct();
+  }, []);
+
+  if (product === null) {
+    return <h1>상품 정보를 받고 있습니다</h1>;
+  }
 
   return (
     <div className="product-detail-wrap">
@@ -59,25 +63,29 @@ function ProductPage() {
           {dayjs(product.createdAt).format("YYYY년 MM월 DD일")}
         </div>
         <pre className="description">{product.description}</pre>
-        <Button
-          className="purchase-button"
-          size="large"
-          type="primary"
-          danger
-          onClick={onClickPurchase}
-          disabled={product.soldout === 1}
-        >
-          구매하기
-        </Button>
-        <Button
-          color="default"
-          variant="outlined"
-          onClick={() => {
-            history.push(`/products/update/${id}`); // 상품 수정 페이지로 이동
-          }}
-        >
-          상품 정보 수정하기
-        </Button>
+        <div className="button-wrap">
+          <Button
+            className="purchase-button"
+            type="primary"
+            danger
+            onClick={onClickPurchase}
+            disabled={product.soldout === 1}
+          >
+            상품 구매
+          </Button>
+          <Button
+            color="default"
+            variant="outlined"
+            onClick={() => {
+              history.push(`/products/update/${id}`); // 상품 수정 페이지로 이동
+            }}
+          >
+            상품 정보 수정
+          </Button>
+          <Button color="default" variant="outlined" onClick={onClickDelete}>
+            상품 삭제
+          </Button>
+        </div>
       </div>
     </div>
   );

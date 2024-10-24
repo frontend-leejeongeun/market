@@ -1,81 +1,62 @@
-import { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../config/constants";
+import { API_URL } from "../../config/constants";
 import {
   Form,
+  Divider,
   Input,
   InputNumber,
   Button,
   Upload,
   message,
-  Divider,
 } from "antd";
 import "./index.css";
 
-function UpdatePage() {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
+function UploadPage() {
   const [imageUrl, setImageUrl] = useState(null);
   const history = useHistory();
 
-  const getProduct = () => {
-    axios
-      .get(`${API_URL}/products/${id}`)
-      .then(function (result) {
-        setProduct(result.data.product);
-        setImageUrl(result.data.product.imageUrl); // 기존 이미지 설정
-      })
-      .catch(function (error) {
-        message.error(`상품 정보를 불러오는 중 오류가 발생했습니다: ${error}`);
-      });
-  };
-
-  useEffect(() => {
-    getProduct();
-  }, [id]);
-
   const onSubmit = (values) => {
     if (!imageUrl) {
-      message.error("이미지를 업로드해주세요.");
+      alert("이미지를 업로드해주세요.");
       return;
     }
-
     axios
-      .put(`${API_URL}/products/${id}`, {
+      .post("http://localhost:8080/products", {
         name: values.name,
         description: values.description,
         seller: values.seller,
         price: parseInt(values.price),
         imageUrl: imageUrl,
       })
-      .then((response) => {
-        message.success("상품 정보가 성공적으로 업데이트되었습니다.");
-        history.push(`/products/${id}`); // 상품 상세 페이지로 이동
+      .then(function (response) {
+        console.log("response", response);
+        history.replace("/");
       })
-      .catch((error) => {
-        message.error(
-          `상품 정보 수정 중 오류가 발생했습니다: ${error.message}`
-        );
+      .catch(function (error) {
+        console.log("error", error);
+        message.error(`에러가 발생했습니다. ${error.message}`);
       });
   };
 
   const onChangeImage = (info) => {
+    if (info.file.status === "uploading") {
+      return;
+    }
     if (info.file.status === "done") {
       const response = info.file.response;
-      setImageUrl(response.imageUrl);
+      const imageUrl = response.imageUrl;
+      setImageUrl(imageUrl);
     }
   };
 
-  if (!product) {
-    return <h1>상품 정보를 불러오는 중...</h1>;
-  }
-
   return (
     <div className="upload-wrap">
-      <Form name="상품 수정" onFinish={onSubmit} initialValues={product}>
+      <Form name="상품 업로드" onFinish={onSubmit}>
         <Form.Item
           name="upload"
+          rules={[{ required: true, message: "이미지를 업로드 해주세요" }]}
           label={<div className="upload-label">상품 사진</div>}
         >
           <Upload
@@ -89,11 +70,11 @@ function UpdatePage() {
               <img
                 className="upload-image"
                 src={`${API_URL}/${imageUrl}`}
-                alt="product"
+                alt="image"
               />
             ) : (
               <div className="upload-image-placeholder">
-                <img src="/images/icons/camera.png" alt="upload" />
+                <img src="/images/icons/camera.png" alt="image" />
                 <span>이미지를 업로드해주세요.</span>
               </div>
             )}
@@ -101,11 +82,15 @@ function UpdatePage() {
         </Form.Item>
         <Divider />
         <Form.Item
-          name="seller"
           label={<div className="upload-label">판매자 명</div>}
+          name="seller"
           rules={[{ required: true, message: "판매자 이름을 입력해주세요" }]}
         >
-          <Input className="upload-name" placeholder="판매자 이름" />
+          <Input
+            className="upload-name"
+            size="large"
+            placeholder="이름을 입력해주세요."
+          />
         </Form.Item>
         <Divider />
         <Form.Item
@@ -113,7 +98,11 @@ function UpdatePage() {
           label={<div className="upload-label">상품 이름</div>}
           rules={[{ required: true, message: "상품 이름을 입력해주세요" }]}
         >
-          <Input className="upload-name" placeholder="상품 이름" />
+          <Input
+            className="upload-name"
+            size="large"
+            placeholder="상품 이름을 입력해주세요"
+          />
         </Form.Item>
         <Divider />
         <Form.Item
@@ -121,27 +110,35 @@ function UpdatePage() {
           label={<div className="upload-label">상품 가격</div>}
           rules={[{ required: true, message: "상품 가격을 입력해주세요" }]}
         >
-          <InputNumber className="upload-price" />
+          <InputNumber className="upload-price" size="large" />
         </Form.Item>
         <Divider />
         <Form.Item
           name="description"
           label={<div className="upload-label">상품 소개</div>}
-          rules={[{ required: true, message: "상품 소개를 입력해주세요" }]}
+          rules={[{ required: true, message: "상품 소개를 입력해주세요." }]}
         >
           <Input.TextArea
+            size="large"
             className="product-description"
             showCount
             maxLength={300}
             placeholder="상품 소개를 적어주세요."
           />
         </Form.Item>
-        <Button className="submit-button" type="primary" htmlType="submit">
-          상품 수정하기
-        </Button>
+        <Form.Item>
+          <Button
+            className="submit-button"
+            size="large"
+            htmlType="submit"
+            disabled={!imageUrl}
+          >
+            상품 등록하기
+          </Button>
+        </Form.Item>
       </Form>
     </div>
   );
 }
 
-export default UpdatePage;
+export default UploadPage;
