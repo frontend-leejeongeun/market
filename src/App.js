@@ -2,6 +2,7 @@ import "./App.css";
 import MainPageComponent from "./main";
 import UploadPage from "./upload";
 import ProductPage from "./product";
+import UpdatePage from "./update";
 import { Switch, Route, Link, useHistory } from "react-router-dom";
 import { Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
@@ -38,6 +39,7 @@ function App() {
           <Route exact={true} path="/products/:id">
             <ProductPage />
           </Route>
+          <Route exact path="/products/update/:id" component={UpdatePage} />
         </Switch>
       </div>
       <div className="footer">

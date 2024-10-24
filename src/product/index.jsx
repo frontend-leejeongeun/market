@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import dayjs from "dayjs";
 import { Button, message } from "antd";
@@ -9,6 +9,7 @@ import "./index.css";
 function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const history = useHistory();
 
   const getProduct = () => {
     axios
@@ -67,6 +68,15 @@ function ProductPage() {
           disabled={product.soldout === 1}
         >
           구매하기
+        </Button>
+        <Button
+          color="default"
+          variant="outlined"
+          onClick={() => {
+            history.push(`/products/update/${id}`); // 상품 수정 페이지로 이동
+          }}
+        >
+          상품 정보 수정하기
         </Button>
       </div>
     </div>
