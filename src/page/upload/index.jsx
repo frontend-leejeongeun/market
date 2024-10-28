@@ -23,7 +23,7 @@ function UploadPage() {
       return;
     }
     axios
-      .post("http://localhost:8080/products", {
+      .post(`${API_URL}/products`, {
         name: values.name,
         description: values.description,
         seller: values.seller,
